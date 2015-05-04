@@ -8,9 +8,9 @@ public class Song {
     public int _songID;
     public String _songName;
 
-    Song(int songID, String songname){
+    Song(int songID, String songName){
     _songID = songID;
-    _songName = songname;
+    _songName = songName;
     }
 
     public int get_songID() {
