@@ -6,9 +6,12 @@
 4: Create the method to update the images accordingly
 5: Fix boundaries for the different swipes
 6: Make sure that the inner class MyAnimationListener is safe and maybe use some encapsulation
-7: Fix the myAnimationListener call for the imageView's width and height
+7:
 8: Update design so it gets the orange feels
 ~~9: Create actionbar~~
 10: Customize actionbar
+
+11: Put songs (10) into an array
+11.1: make it collect randomly
 
 

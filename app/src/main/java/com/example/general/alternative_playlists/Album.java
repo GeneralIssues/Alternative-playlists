@@ -7,12 +7,9 @@ package com.example.general.alternative_playlists;
 public class Album {
     public int _albumID;
     public String _albumName;
-    String[] _songs;
 
-    Album(int albumID, String albumName, String[] songs){
-        _albumID = albumID;
+    Album(String albumName){
         _albumName = albumName;
-        _songs = songs;
     }
 
     public int get_albumID() {
@@ -29,13 +26,5 @@ public class Album {
 
     public void set_albumName(String _albumName) {
         this._albumName = _albumName;
-    }
-
-    public String[] get_songs() {
-        return _songs;
-    }
-
-    public void set_songs(String[] _songs) {
-        this._songs = _songs;
     }
 }

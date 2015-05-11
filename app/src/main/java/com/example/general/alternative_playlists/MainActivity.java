@@ -21,6 +21,18 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     //The gesture detector that facilitates the touchEvents
     private GestureDetectorCompat mDetector;
 
+    //Array
+    String[] albumList = {"The 2nd Law", "Cage The Elephant"};
+    Song[] songList = new Song[10];
+
+    Song supr;
+    //Song aint = new Song("Aint No Rest for The Wicked", 1);
+    //Song dont = new Song("Don't Stop Me Now", 2);
+
+    songList[0] = new Song("Supremacy");
+
+
+
     Artist Musk = new Artist(1, "Musk", new String[]{"Fixing the server", "Cookie is dead", "No More Holt"});
 
     //initialising the array containing images to be drawn
