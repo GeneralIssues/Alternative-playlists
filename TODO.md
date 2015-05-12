@@ -11,7 +11,10 @@
 ~~9: Create actionbar~~
 10: Customize actionbar
 
-11: Put songs (10) into an array
-11.1: make it collect randomly
+~~11: Put songs (10) into an array~~
+12: Make song view take the string from songList and albumID for coverart
+~~12.1: Create an array of numbers in the length of the songList array. Scramble all the numbers on choose the next each time music has been added~~
+12.2: When the app starts the first position in the solutionArray should be picked. By each swipe it should go to the next
+13: Make the next coverart show with the text.
 
 

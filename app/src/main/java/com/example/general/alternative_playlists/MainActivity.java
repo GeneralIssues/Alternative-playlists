@@ -1,18 +1,14 @@
 package com.example.general.alternative_playlists;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
-import android.animation.Animator.AnimatorListener;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener{
 
@@ -20,23 +16,24 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private GestureDetectorCompat mDetector;
 
     //The songs which were needed
-    Song song1 = new Song("Ain't No Rest for The Wicked");
-    Song song2 = new Song("Don't Stop Me Now");
-    Song song3 = new Song("");
-    Song song4 = new Song("");
-    Song song5 = new Song("");
-    Song song6 = new Song("");
-    Song song7 = new Song("");
-    Song song8 = new Song("");
-    Song song9 = new Song("");
-    Song song10 = new Song("");
+    Song song1 = new Song("Ain't No Rest for The Wicked", 1);
+    Song song2 = new Song("Don't Stop Me Now", 2);
+    Song song3 = new Song("Karma", 3);
+    Song song4 = new Song("Movie Klip", 4);
+    Song song5 = new Song("Creep", 5);
+    Song song6 = new Song("Smells Like Teen Spirit", 6);
+    Song song7 = new Song("Gangsta's  Paradise", 7);
+    Song song8 = new Song("Crab in Honey", 8);
+    Song song9 = new Song("The Great Gig in the Sky", 9);
+    Song song10 = new Song("In One Ear", 10);
 
 
     //Array
     String[] albumList = {"The 2nd Law", "Cage The Elephant"};
     Song[] songList = {song1, song2, song3, song4, song5, song6, song7, song8, song9, song10};
 
-    Artist Musk = new Artist(1, "Musk", new String[]{"Fixing the server", "Cookie is dead", "No More Holt"});
+    //Values
+    int songPos = 0;
 
     //initialising the array containing images to be drawn
     private Drawable[] drawables = null; // create a Drawables array that stores location of different images
@@ -45,8 +42,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mDetector = new GestureDetectorCompat(this,this);
-        TextView songName = (TextView)this.findViewById(R.id.textView2);
 
         //The array containing the song images to be drawn
         //Makes use of deprecated methods but oh well
@@ -54,7 +51,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 getResources().getDrawable(R.drawable.song),
                 getResources().getDrawable(R.drawable.song1)
         };
-        songName.setText(Musk._songs[0]);
     }
 
     @Override
@@ -98,7 +94,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
         TextView genreText = (TextView)this.findViewById(R.id.textView);
         TextView songName = (TextView)this.findViewById(R.id.textView2);
-        String[] genres = {"Rock", "Pop", "Wub-Wub"};
+        String[] genres = {"Rock","Pop","Jazz","Wub-Wub"};
         int genreID = 0;
         int songID = 0;
         int imageID = 0;
