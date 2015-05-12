@@ -1,7 +1,9 @@
 package com.example.general.alternative_playlists;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -9,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
+
+import java.util.Random;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener{
 
@@ -31,15 +35,23 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     //Array
     String[] albumList = {"The 2nd Law", "Cage The Elephant"};
     Song[] songList = {song1, song2, song3, song4, song5, song6, song7, song8, song9, song10};
+    int[] solutionArray = new int[songList.length];
 
     //Values
     int songPos = 0;
+    int a = 0;
 
     //initialising the array containing images to be drawn
     private Drawable[] drawables = null; // create a Drawables array that stores location of different images
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Create an array of scrambled numbers
+        for(int i = 0; i < songList.length; i++){
+            solutionArray[i] = i;
+        }
+        shuffleArray(solutionArray);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -91,50 +103,47 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        ImageView square = (ImageView)this.findViewById(R.id.imageView);
+        final ImageView square = (ImageView)this.findViewById(R.id.imageView);
         TextView genreText = (TextView)this.findViewById(R.id.textView);
-        TextView songName = (TextView)this.findViewById(R.id.textView2);
+        final TextView songName = (TextView)this.findViewById(R.id.textView2);
         String[] genres = {"Rock","Pop","Jazz","Wub-Wub"};
         int genreID = 0;
-        int songID = 0;
-        int imageID = 0;
+        final int[] imageID = {0};
         float sensitivity = 40;
 
     //Check for which element is being swiped
     if(e1.getY() <= 400) {
         //Check for the direction of the swipe
         if ((e1.getX() - e2.getX()) > sensitivity) {
-            //Prints message on screen purely for debugging purposes
-            //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
 
+            final int[] finalImageID = {imageID[0]};
             square.animate().translationX(-1500).setDuration(500).withEndAction( new Runnable() {
                 @Override
                 public void run() {
+                    songName.setText("");
                     setPosFromRight();
                     transIn();
+                    square.setImageDrawable(drawables[finalImageID[a]]);
+                    a++;
                 }
             });
-            imageID ++;
-            songID ++;
-            square.setImageDrawable(drawables[imageID]);
-            songName.setText(Musk._songs[songID]);
+
 
         } else if ((e2.getX() - e1.getX()) > sensitivity) {
-            //Prints message on screen purely for debugging purposes
-            //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
 
-            //Simple animation sequence
+            final int[] finalImageID = {imageID[0]};
             square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
                 @Override
                 public void run() {
+                    songName.setText("");
                     setPosFromLeft();
                     transIn();
+                    square.setImageDrawable(drawables[finalImageID[a]]);
+                    a++;
                 }
             });
-            imageID ++;
-            songID ++;
-            square.setImageDrawable(drawables[imageID]);
-            songName.setText(Musk._songs[songID]);
+
+
 
         }
     } else if(e1.getY() > 400){
@@ -175,9 +184,30 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         square.setY(square.getY() - 600);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void transIn(){
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
-                square.animate().translationY(50).setDuration(500).setStartDelay(500);
+        final TextView songName = (TextView)this.findViewById(R.id.textView2);
+                square.animate().translationY(50).setDuration(500).setStartDelay(500).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(songPos > songList.length -1) {
+                            songName.setText("");
+                        }else{
+                        songName.setText(songList[solutionArray[songPos]].getSongName());
+                        songPos++;
+                    }}
+                });
         }
+    public void shuffleArray(int[] ar){
+        Random rnd = new Random();
+        for(int i = ar.length -1; i > 0; i--){
+            int index = rnd.nextInt(i + 1);
+            int a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
+    }
+
 }
 
