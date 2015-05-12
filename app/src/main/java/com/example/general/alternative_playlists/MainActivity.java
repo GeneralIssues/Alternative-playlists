@@ -131,7 +131,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         Display display =    getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
         int height = size.y;
 
     //Check for which element is being swiped
