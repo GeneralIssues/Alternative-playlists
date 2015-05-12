@@ -2,9 +2,11 @@ package com.example.general.alternative_playlists;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     Song song2 = new Song("Don't Stop Me Now", 2);
     Song song3 = new Song("Karma", 3);
     Song song4 = new Song("Movie Klip", 4);
-    Song song5 = new Song("Creep", 5);
+    Song song5 = new Song("Radioactive", 5);
     Song song6 = new Song("Smells Like Teen Spirit", 6);
     Song song7 = new Song("Gangsta's  Paradise", 7);
     Song song8 = new Song("Crab in Honey", 8);
@@ -40,6 +42,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     //Values
     int songPos = 0;
     int a = 0;
+
+
 
     //initialising the array containing images to be drawn
     private Drawable[] drawables = null; // create a Drawables array that stores location of different images
@@ -57,12 +61,26 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         mDetector = new GestureDetectorCompat(this,this);
 
-        //The array containing the song images to be drawn
+        //The array containing the songs images to be drawn
         //Makes use of deprecated methods but oh well
         drawables = new Drawable[] {
-                getResources().getDrawable(R.drawable.song),
-                getResources().getDrawable(R.drawable.song1)
+                getResources().getDrawable(R.drawable.imagedragons),
+                getResources().getDrawable(R.drawable.burhang),
+                getResources().getDrawable(R.drawable.cagetheelephant),
+                getResources().getDrawable(R.drawable.coolio),
+                getResources().getDrawable(R.drawable.nephew),
+                getResources().getDrawable(R.drawable.nirvana),
+                getResources().getDrawable(R.drawable.pinkfloyd),
+                getResources().getDrawable(R.drawable.queen),
+                getResources().getDrawable(R.drawable.fevertheghost)
         };
+        TextView songName = (TextView)this.findViewById(R.id.textView2);
+        songName.setText(songList[solutionArray[songPos]].getSongName());
+
+        ImageView square = (ImageView)this.findViewById(R.id.imageView);
+        square.setImageDrawable(drawables[a]);
+        a++;
+
     }
 
     @Override
@@ -103,27 +121,31 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        final TextView songName = (TextView)this.findViewById(R.id.textView2);
         final ImageView square = (ImageView)this.findViewById(R.id.imageView);
         TextView genreText = (TextView)this.findViewById(R.id.textView);
-        final TextView songName = (TextView)this.findViewById(R.id.textView2);
         String[] genres = {"Rock","Pop","Jazz","Wub-Wub"};
         int genreID = 0;
-        final int[] imageID = {0};
         float sensitivity = 40;
 
+        Display display =    getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
     //Check for which element is being swiped
-    if(e1.getY() <= 400) {
+    if(e1.getY() <= height/4 * 3) {
         //Check for the direction of the swipe
         if ((e1.getX() - e2.getX()) > sensitivity) {
 
-            final int[] finalImageID = {imageID[0]};
             square.animate().translationX(-1500).setDuration(500).withEndAction( new Runnable() {
                 @Override
                 public void run() {
                     songName.setText("");
                     setPosFromRight();
                     transIn();
-                    square.setImageDrawable(drawables[finalImageID[a]]);
+                    square.setImageDrawable(drawables[a]);
                     a++;
                 }
             });
@@ -131,14 +153,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         } else if ((e2.getX() - e1.getX()) > sensitivity) {
 
-            final int[] finalImageID = {imageID[0]};
             square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
                 @Override
                 public void run() {
                     songName.setText("");
                     setPosFromLeft();
                     transIn();
-                    square.setImageDrawable(drawables[finalImageID[a]]);
+                    square.setImageDrawable(drawables[a]);
                     a++;
                 }
             });
@@ -146,7 +167,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 
         }
-    } else if(e1.getY() > 400){
+    } else if(e1.getY() > height/4){
         if ((e1.getX() - e2.getX()) > sensitivity) {
             //Prints message on screen purely for debugging purposes
             //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
