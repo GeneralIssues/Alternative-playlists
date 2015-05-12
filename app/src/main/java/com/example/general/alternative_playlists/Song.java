@@ -5,19 +5,23 @@ package com.example.general.alternative_playlists;
  */
 
 public class Song {
-    private String _songName;
-    private int _albumID;
+    private String songName;
+    //private int _albumID;
+    Album alb;
 
-    Song(String songName){
-    _songName = songName;
+    Song(String _songName, int _albumID){
+    songName = _songName;
     //_albumID = albumID;
+    alb = new Album(_albumID);
+
+
     }
 
-    public String get_songName() {
-        return _songName;
+    public String getSongName() {
+        return songName;
     }
 
-    public void set_songName(String _songName) {
-        this._songName = _songName;
+    public void setSongName(String _songName) {
+        this.songName = _songName;
     }
 }
