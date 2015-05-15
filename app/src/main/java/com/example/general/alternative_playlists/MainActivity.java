@@ -22,16 +22,16 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private GestureDetectorCompat mDetector;
 
     //The songs which were needed
-    Song song1 = new Song("Ain't No Rest for The Wicked", 1);
-    Song song2 = new Song("Don't Stop Me Now", 2);
-    Song song3 = new Song("Karma", 3);
-    Song song4 = new Song("Movie Klip", 4);
-    Song song5 = new Song("Radioactive", 5);
-    Song song6 = new Song("Smells Like Teen Spirit", 6);
-    Song song7 = new Song("Gangsta's  Paradise", 7);
-    Song song8 = new Song("Crab in Honey", 8);
-    Song song9 = new Song("The Great Gig in the Sky", 9);
-    Song song10 = new Song("In One Ear", 10);
+    Song song1 = new Song("Ain't No Rest for The Wicked", 0);
+    Song song2 = new Song("Don't Stop Me Now", 1);
+    Song song3 = new Song("Karma", 2);
+    Song song4 = new Song("Movie Klip", 3);
+    Song song5 = new Song("Radioactive", 4);
+    Song song6 = new Song("Smells Like Teen Spirit", 5);
+    Song song7 = new Song("Gangsta's  Paradise", 6);
+    Song song8 = new Song("Crab in Honey", 7);
+    Song song9 = new Song("The Great Gig in the Sky", 8);
+    Song song10 = new Song("In One Ear", 0);
 
 
     //Array
@@ -64,22 +64,22 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         //The array containing the songs images to be drawn
         //Makes use of deprecated methods but oh well
         drawables = new Drawable[] {
-                getResources().getDrawable(R.drawable.imagedragons),
-                getResources().getDrawable(R.drawable.burhang),
                 getResources().getDrawable(R.drawable.cagetheelephant),
-                getResources().getDrawable(R.drawable.coolio),
-                getResources().getDrawable(R.drawable.nephew),
-                getResources().getDrawable(R.drawable.nirvana),
-                getResources().getDrawable(R.drawable.pinkfloyd),
                 getResources().getDrawable(R.drawable.queen),
-                getResources().getDrawable(R.drawable.fevertheghost)
+                getResources().getDrawable(R.drawable.burhang),
+                getResources().getDrawable(R.drawable.nephew),
+                getResources().getDrawable(R.drawable.imagedragons),
+                getResources().getDrawable(R.drawable.nirvana),
+                getResources().getDrawable(R.drawable.coolio),
+                getResources().getDrawable(R.drawable.fevertheghost),
+                getResources().getDrawable(R.drawable.pinkfloyd)
         };
         TextView songName = (TextView)this.findViewById(R.id.textView2);
         songName.setText(songList[solutionArray[songPos]].getSongName());
 
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
-        square.setImageDrawable(drawables[a]);
-        a++;
+        square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
+        songPos++;
 
     }
 
@@ -144,8 +144,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     songName.setText("");
                     setPosFromRight();
                     transIn();
-                    square.setImageDrawable(drawables[a]);
-                    a++;
+                    square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
                 }
             });
 
@@ -158,8 +157,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     songName.setText("");
                     setPosFromLeft();
                     transIn();
-                    square.setImageDrawable(drawables[a]);
-                    a++;
+                    square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
                 }
             });
 

@@ -6,13 +6,12 @@ package com.example.general.alternative_playlists;
 
 public class Song {
     private String songName;
-    //private int _albumID;
-    Album alb;
+    private int albumID;
 
     Song(String _songName, int _albumID){
     songName = _songName;
     //_albumID = albumID;
-    alb = new Album(_albumID);
+    albumID = _albumID;
 
 
     }
@@ -23,5 +22,9 @@ public class Song {
 
     public void setSongName(String _songName) {
         this.songName = _songName;
+    }
+
+    public int getAlbumID() {
+        return albumID;
     }
 }
