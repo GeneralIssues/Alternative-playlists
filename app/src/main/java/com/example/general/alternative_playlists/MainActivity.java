@@ -183,23 +183,28 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 
                 }
-            } else if (e1.getY() > (height / 4) * 3) {
+            } else if (e1.getY() > height / 4 * 3) {
+                System.out.println("What bout this?");
                 if ((e1.getX() - e2.getX()) > sensitivity / 2 /* || e1.getY() - e2.getY() > sensitivity/2*/) {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
-                    if (playlistPos > 0) {
+                    if (playlistPos > 1) {
                         Toast.makeText(this, "No more playlists!", Toast.LENGTH_LONG).show();
+                        System.out.println("Wrong high number");
                     } else {
+                        System.out.println("Add");
                         playlistPos++;
                         genreText.setText(playlists[playlistPos]._playlistName);
                     }
-
+                    System.out.println("See this?");
                 } else if ((e2.getX() - e1.getX()) > sensitivity / 2 /* || e2.getY() - e1.getY() > sensitivity/2 */) {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
-                    if (playlistPos < 0) {
+                    if (playlistPos < 1) {
                         Toast.makeText(this, "No more playlists!", Toast.LENGTH_LONG).show();
+                        System.out.println("Wrong low number");
                     } else {
+                        System.out.println("Subtract");
                         playlistPos--;
                         genreText.setText(playlists[playlistPos]._playlistName);
                     }
