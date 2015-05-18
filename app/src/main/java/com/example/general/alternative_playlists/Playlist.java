@@ -1,5 +1,8 @@
 package com.example.general.alternative_playlists;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by General on 28/04/2015.
  */
@@ -7,9 +10,9 @@ package com.example.general.alternative_playlists;
 public class Playlist {
     public int _playlistID;
     public String _playlistName;
-    String[] _songs;
+    List<String> _songs = new ArrayList<>();
 
-    Playlist(int playlistID, String playlistName, String[] songs){
+    Playlist(int playlistID, String playlistName, List<String> songs){
         _playlistID = playlistID;
         _playlistName = playlistName;
         _songs = songs;
@@ -31,11 +34,11 @@ public class Playlist {
         this._playlistName = _albumName;
     }
 
-    public String[] get_songs() {
+    public List<String> get_songs() {
         return _songs;
     }
 
-    public void set_songs(String[] _songs) {
+    public void set_songs(List<String> _songs) {
         this._songs = _songs;
     }
 }
