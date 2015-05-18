@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 getResources().getDrawable(R.drawable.queen),
                 getResources().getDrawable(R.drawable.burhang),
                 getResources().getDrawable(R.drawable.nephew),
-                getResources().getDrawable(R.drawable.imagedragons),
+                getResources().getDrawable(R.drawable.imaginedragons),
                 getResources().getDrawable(R.drawable.nirvana),
                 getResources().getDrawable(R.drawable.coolio),
                 getResources().getDrawable(R.drawable.fevertheghost),
@@ -151,8 +151,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         display.getSize(size);
         int height = size.y;
 
-        final int SWIPE_DISTANCE_THRESHOLD = 50;
-        final int SWIPE_VELOCITY_THRESHOLD = 50;
+        final int SWIPE_DISTANCE_THRESHOLD = 100;
+        final int SWIPE_VELOCITY_THRESHOLD = 200;
 
         float distanceX = e2.getX() - e1.getX();
         float distanceY = e2.getY() - e2.getY();

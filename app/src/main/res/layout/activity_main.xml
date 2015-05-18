@@ -4,10 +4,10 @@
     tools:context=".MainActivity">
     
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="350dp"
+        android:layout_width="320dp"
+        android:layout_height="360dp"
         android:id="@+id/imageView"
-        android:src="@drawable/imagedragons"
+        android:src="@drawable/imaginedragons"
         android:clickable="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
