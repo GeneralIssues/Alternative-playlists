@@ -14,6 +14,8 @@ import android.widget.Toast;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener{
@@ -36,8 +38,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     //Array
     String[] albumList = {"The 2nd Law", "Cage The Elephant"};
+    String[] RockSongs = {};
+    String[] PopSongs = {};
+    String[] ClassicSongs = {};
     Song[] songList = {song1, song2, song3, song4, song5, song6, song7, song8, song9, song10};
     int[] solutionArray = new int[songList.length];
+    Playlist Rock = new Playlist(1,"Rock",RockSongs);
+    Playlist Pop = new Playlist(2,"Pop",PopSongs);
+    Playlist Classic = new Playlist(3,"Classic", ClassicSongs);
 
     //Values
     int songPos = 0;
@@ -125,7 +133,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         final ImageView square = (ImageView)this.findViewById(R.id.imageView);
         TextView genreText = (TextView)this.findViewById(R.id.textView);
         String[] genres = {"Rock","Pop","Jazz","Wub-Wub"};
-        int genreID = 0;
+        int genreID = 1;
         float sensitivity = 40;
 
         Display display =    getWindowManager().getDefaultDisplay();
@@ -138,6 +146,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         //Check for the direction of the swipe
         if ((e1.getX() - e2.getX()) > sensitivity) {
 
+            songName.animate().translationX(-1500).setDuration(500);
             square.animate().translationX(-1500).setDuration(500).withEndAction( new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +159,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 
         } else if ((e2.getX() - e1.getX()) > sensitivity) {
-
+            songName.animate().translationX(1500).setDuration(500);
             square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
                 @Override
                 public void run() {
@@ -165,7 +174,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         }
     } else if(e1.getY() > height/4){
-        if ((e1.getX() - e2.getX()) > sensitivity) {
+        if ((e1.getX() - e2.getX()) > sensitivity || e1.getY() - e2.getY() > sensitivity) {
             //Prints message on screen purely for debugging purposes
             //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
             if(genreID == 3){
@@ -175,7 +184,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 genreText.setText(genres[genreID]);
             }
 
-        } else if ((e2.getX() - e1.getX()) > sensitivity) {
+        } else if ((e2.getX() - e1.getX()) > sensitivity || e2.getY() - e1.getY() > sensitivity) {
             //Prints message on screen purely for debugging purposes
             //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
             if(genreID == 0){
@@ -192,29 +201,38 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     public void setPosFromLeft(){
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
+        TextView songName = (TextView)this.findViewById(R.id.textView2);
         square.setX(square.getX() - 1500);
         square.setY(square.getY() - 600);
+        songName.setX(songName.getX() - 1500);
+        songName.setY(songName.getY() - 600);
     }
 
     public void setPosFromRight(){
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
+        TextView songName = (TextView)this.findViewById(R.id.textView2);
         square.setX(square.getX() + 1500);
         square.setY(square.getY() - 600);
+        songName.setX(songName.getX() + 1500);
+        songName.setY(songName.getY() - 600);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void transIn(){
         ImageView square = (ImageView)this.findViewById(R.id.imageView);
         final TextView songName = (TextView)this.findViewById(R.id.textView2);
+                songName.animate().translationY(50).setDuration(500).setStartDelay(500);
                 square.animate().translationY(50).setDuration(500).setStartDelay(500).withEndAction(new Runnable() {
                     @Override
                     public void run() {
-                        if(songPos > songList.length -1) {
+                        if (songPos > songList.length - 1) {
                             songName.setText("");
-                        }else{
-                        songName.setText(songList[solutionArray[songPos]].getSongName());
-                        songPos++;
-                    }}
+                        } else {
+                            songName.setText(songList[solutionArray[songPos]].getSongName());
+                            songPos++;
+
+                        }
+                    }
                 });
         }
     public void shuffleArray(int[] ar){
@@ -225,6 +243,12 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             ar[index] = ar[i];
             ar[i] = a;
         }
+    }
+
+    public void addSongToPlaylist(Song a, Playlist b){
+       // b._songs =
+        List<String> songs = new ArrayList<String>();
+
     }
 
 }
