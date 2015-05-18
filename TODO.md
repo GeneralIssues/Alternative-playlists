@@ -17,7 +17,7 @@
 ~~12.2: When the app starts the first position in the solutionArray should be picked. By each swipe it should go to the next~~
 ~~13: Make the next coverart show with the text.~~
 
-14: Add chosen songs to different playlist arrays
-14.1: When no more songs can be chosen, print the arrays in the console
+~~14: Add chosen songs to different playlist arrays~~
+~~14.1: When no more songs can be chosen, print the arrays in the console~~
 
 
