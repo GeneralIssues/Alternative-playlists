@@ -151,8 +151,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         display.getSize(size);
         int height = size.y;
 
-        final int SWIPE_DISTANCE_THRESHOLD = 100;
-        final int SWIPE_VELOCITY_THRESHOLD = 200;
+        final int SWIPE_DISTANCE_THRESHOLD = 50;
+        final int SWIPE_VELOCITY_THRESHOLD = 100;
 
         float distanceX = e2.getX() - e1.getX();
         float distanceY = e2.getY() - e2.getY();
@@ -221,68 +221,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
 
         return false;
-
-        //Check for which element is being swiped
-        /*    if (e1.getY() <= height / 4 * 3) {
-                //Check for the direction of the swipe
-                if ((e1.getX() - e2.getX()) > sensitivity) {
-
-                    songName.animate().translationX(-1500).setDuration(500);
-                    square.animate().translationX(-1500).setDuration(500).withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            songName.setText("");
-                            setPosFromRight();
-                            transIn();
-                            square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
-                            //addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
-                        }
-                    });
-
-
-                } else if ((e2.getX() - e1.getX()) > sensitivity) {
-                    songName.animate().translationX(1500).setDuration(500);
-                    square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            songName.setText("");
-                            setPosFromLeft();
-                            transIn();
-                            square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
-                            addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
-                        }
-                    });
-
-
-                }
-            } else if (e1.getY() > height / 4 * 3) {
-                System.out.println("What bout this?");
-                if ((e1.getX() - e2.getX()) > sensitivity / 2) {
-                    //Prints message on screen purely for debugging purposes
-                    //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
-                    if (playlistPos > 1) {
-                        Toast.makeText(this, "No more playlists!", Toast.LENGTH_LONG).show();
-                        System.out.println("Wrong high number");
-                    } else {
-                        System.out.println("Add");
-                        playlistPos++;
-                        genreText.setText(playlists[playlistPos]._playlistName);
-                    }
-                    System.out.println("See this?");
-                } else if ((e2.getX() - e1.getX()) > sensitivity / 2) {
-                    //Prints message on screen purely for debugging purposes
-                    //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
-                    if (playlistPos < 1) {
-                        Toast.makeText(this, "No more playlists!", Toast.LENGTH_LONG).show();
-                        System.out.println("Wrong low number");
-                    } else {
-                        System.out.println("Subtract");
-                        playlistPos--;
-                        genreText.setText(playlists[playlistPos]._playlistName);
-                    }
-                }
-
-            }*/
     }
 
     public void setPosFromLeft(){
