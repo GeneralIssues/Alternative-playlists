@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -143,15 +144,86 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         TextView genreText = (TextView) this.findViewById(R.id.textView);
         //String[] genres = {"Rock","Pop","Classic"};
         //int genreID = 1;
-        float sensitivity = 40;
+        //float sensitivity = 40;
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int height = size.y;
 
+        final int SWIPE_DISTANCE_THRESHOLD = 50;
+        final int SWIPE_VELOCITY_THRESHOLD = 50;
+
+        float distanceX = e2.getX() - e1.getX();
+        float distanceY = e2.getY() - e2.getY();
+
+        // Check swipe direction
+        if( Math.abs(distanceX) > Math.abs(distanceY)
+                && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD
+                && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+            if(distanceX > 0) {
+                //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
+
+                // If on the top 3/4th
+                if(e1.getY() <= (height / 4) * 3) {
+                    songName.animate().translationX(1500).setDuration(500);
+                    square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            songName.setText("");
+                            setPosFromLeft();
+                            transIn();
+                            square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
+                            addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
+                        }
+                    });
+                } else {
+                    //Prints message on screen purely for debugging purposes
+                    //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
+                    if (playlistPos < 1) {
+                        playlistPos = playlists.length-1;
+                        genreText.setText(playlists[playlistPos]._playlistName);
+                    } else {
+                        playlistPos--;
+                        genreText.setText(playlists[playlistPos]._playlistName);
+                    }
+                }
+
+            } else {
+                //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
+
+                // If on the top 3/4th
+                if(e1.getY() <= (height / 4) * 3) {
+                    songName.animate().translationX(-1500).setDuration(500);
+                    square.animate().translationX(-1500).setDuration(500).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            songName.setText("");
+                            setPosFromRight();
+                            transIn();
+                            square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
+                            //addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
+                        }
+                    });
+                } else {
+                    //Prints message on screen purely for debugging purposes
+                    //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
+                    if (playlistPos > 1) {
+                        playlistPos = 0;
+                        genreText.setText(playlists[playlistPos]._playlistName);
+                    } else {
+                        playlistPos++;
+                        genreText.setText(playlists[playlistPos]._playlistName);
+                    }
+                }
+            }
+            return true;
+        }
+
+        return false;
+
         //Check for which element is being swiped
-            if (e1.getY() <= height / 4 * 3) {
+        /*    if (e1.getY() <= height / 4 * 3) {
                 //Check for the direction of the swipe
                 if ((e1.getX() - e2.getX()) > sensitivity) {
 
@@ -185,7 +257,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 }
             } else if (e1.getY() > height / 4 * 3) {
                 System.out.println("What bout this?");
-                if ((e1.getX() - e2.getX()) > sensitivity / 2 /* || e1.getY() - e2.getY() > sensitivity/2*/) {
+                if ((e1.getX() - e2.getX()) > sensitivity / 2) {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
                     if (playlistPos > 1) {
@@ -197,7 +269,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                         genreText.setText(playlists[playlistPos]._playlistName);
                     }
                     System.out.println("See this?");
-                } else if ((e2.getX() - e1.getX()) > sensitivity / 2 /* || e2.getY() - e1.getY() > sensitivity/2 */) {
+                } else if ((e2.getX() - e1.getX()) > sensitivity / 2) {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
                     if (playlistPos < 1) {
@@ -210,8 +282,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     }
                 }
 
-            }
-        return true;
+            }*/
     }
 
     public void setPosFromLeft(){
