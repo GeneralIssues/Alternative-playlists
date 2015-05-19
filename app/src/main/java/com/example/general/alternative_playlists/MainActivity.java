@@ -154,6 +154,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         final int SWIPE_DISTANCE_THRESHOLD = 50;
         final int SWIPE_VELOCITY_THRESHOLD = 100;
 
+        final int TRANSITION_DURATION = 400;
+        final int TRANSITION_DISTANCE = 1500;
+
         float distanceX = e2.getX() - e1.getX();
         float distanceY = e2.getY() - e2.getY();
 
@@ -166,15 +169,16 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 // If on the top 3/4th
                 if(e1.getY() <= (height / 4) * 3) {
-                    songName.animate().translationX(1500).setDuration(500);
-                    square.animate().translationX(1500).setDuration(500).withEndAction(new Runnable() {
+                    songName.animate().translationX(TRANSITION_DISTANCE).setDuration(TRANSITION_DURATION);
+                    square.animate().translationX(TRANSITION_DISTANCE).setDuration(TRANSITION_DURATION).withEndAction(new Runnable() {
                         @Override
                         public void run() {
+                            addSongToPlaylist(songList[solutionArray[songPos-1]], playlists[playlistPos]);
                             songName.setText("");
                             setPosFromLeft();
                             transIn();
                             square.setImageDrawable(drawables[songList[solutionArray[songPos]].getAlbumID()]);
-                            addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
+                            //addSongToPlaylist(songList[solutionArray[songPos-1]], playlists[playlistPos]);
                         }
                     });
                     Toast.makeText(this, "Song added to " + playlists[playlistPos]._playlistName + ".", Toast.LENGTH_LONG).show();
@@ -195,8 +199,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 // If on the top 3/4th
                 if(e1.getY() <= (height / 4) * 3) {
-                    songName.animate().translationX(-1500).setDuration(500);
-                    square.animate().translationX(-1500).setDuration(500).withEndAction(new Runnable() {
+                    songName.animate().translationX(-TRANSITION_DISTANCE).setDuration(TRANSITION_DURATION);
+                    square.animate().translationX(-TRANSITION_DISTANCE).setDuration(TRANSITION_DURATION).withEndAction(new Runnable() {
                         @Override
                         public void run() {
                             songName.setText("");
