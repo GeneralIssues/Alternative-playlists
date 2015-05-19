@@ -177,6 +177,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                             addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
                         }
                     });
+                    Toast.makeText(this, "Song added to " + playlists[playlistPos]._playlistName + ".", Toast.LENGTH_LONG).show();
                 } else {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
@@ -205,6 +206,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                             //addSongToPlaylist(songList[solutionArray[songPos]], playlists[playlistPos]);
                         }
                     });
+                    Toast.makeText(this, "Song dismissed.", Toast.LENGTH_LONG).show();
                 } else {
                     //Prints message on screen purely for debugging purposes
                     //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
